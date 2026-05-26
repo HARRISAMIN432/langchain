@@ -1,5 +1,4 @@
-from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -7,10 +6,15 @@ from langchain_core.runnables import RunnableBranch, RunnableLambda
 from langchain_core.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 from typing import Literal
+import os
 
 load_dotenv()
 
-model = ChatOpenAI()
+model = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    google_api_key=os.getenv("API_KEY"),
+    temperature = 0.2,
+)
 
 parser = StrOutputParser()
 
@@ -29,8 +33,11 @@ prompt1 = PromptTemplate(
 classifier_chain = prompt1 | model | parser2
 
 prompt2 = PromptTemplate(
-    template='Write an appropriate response to this positive feedback \n {feedback}',
-    input_variables=['feedback']
+    template="""A customer said:
+"               {feedback}"
+                Write a short polite reply directly to the customer. I will exactly send forward the text you gave me. So try speaking like you are talking to the customer with 3 to 4 lines reply
+             """,
+    input_variables=["feedback"]
 )
 
 prompt3 = PromptTemplate(
@@ -46,6 +53,6 @@ branch_chain = RunnableBranch(
 
 chain = classifier_chain | branch_chain
 
-print(chain.invoke({'feedback': 'This is a beautiful phone'}))
+print(chain.invoke({'feedback': 'I really loved the phone design and specifications'}))
 
 chain.get_graph().print_ascii()
