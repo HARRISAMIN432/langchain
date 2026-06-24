@@ -16,9 +16,10 @@ documents = [
     "Kane Williamson is a New Zealand captain admired for his calm temperament, classical batting technique, and ability to anchor innings for long durations."
 ]
 
+doc_embeddings = embedding.embed_documents(documents)
+
 query = input()
 
-doc_embeddings = embedding.embed_documents(documents)
 query_embed = embedding.embed_query(query)
 
 scores = cosine_similarity([query_embed], doc_embeddings)[0] # Both should be in 2D form
