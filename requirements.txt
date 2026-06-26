@@ -1,7 +1,8 @@
-# LangChain Core
+# LangChain
 langchain
 langchain-core
 langchain-community
+langchain-text-splitters
 
 # OpenAI Integration
 langchain-openai
@@ -31,3 +32,8 @@ scikit-learn
 
 # PDF Loaders
 pypdf
+
+# Vector Store
+chromadb
+langchain-chroma
+tiktoken
