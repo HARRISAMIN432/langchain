@@ -38,3 +38,6 @@ pypdf
 chromadb
 langchain-chroma
 tiktoken
+
+# Youbube libraries
+youtube-transcript-api
