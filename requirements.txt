@@ -4,6 +4,7 @@ langchain-core
 langchain-community
 langchain-text-splitters
 langchain-classic
+langchain_experimental
 
 # OpenAI Integration
 langchain-openai
@@ -41,3 +42,9 @@ tiktoken
 
 # Youbube libraries
 youtube-transcript-api
+
+# duckduck go
+duckduckgo-search
+
+# Utilities
+ddgs
